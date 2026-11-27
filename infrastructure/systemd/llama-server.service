@@ -1,0 +1,16 @@
+[Unit]
+Description=Qwen3 AI Inference Server
+After=network.target
+
+[Service]
+Type=simple
+User=@USER@
+WorkingDirectory=@HOME@/llama.cpp
+ExecStart=@HOME@/llama.cpp/build/bin/llama-server --model @HOME@/models/Qwen3-4B-Q4_K_M.gguf --alias qwen3-4b --host 127.0.0.1 --port 8080 --ctx-size @CONTEXT@ --threads @THREADS@ --parallel 1 --batch-size 256 --ubatch-size 128 --n-gpu-layers 0 --jinja
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
